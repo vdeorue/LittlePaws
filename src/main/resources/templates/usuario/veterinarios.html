@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header-base"/>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+
+    <script defer src="https://use.fontawesome.com/releases/v5.12/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.12/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+    <link rel="stylesheet" th:href="@{/css/notificacion.css}">
+</head>
+<body style="text-align:left">
+<nav th:replace="fragments/sidebar :: sidebar"/>
+<div class="main">
+    <head th:replace="fragments/header :: header-inside"/>
+    <div class="container" style="margin-top:150px;margin-bottom:150px;" th:if="${Vacia}">
+        <section style="text-align:center">
+            <h1>No se han registrado veterinarios </h1><br>
+            <i style="font-size:100px;color:#d95763" class="fas fa-sad-tear"></i>
+        </section>
+    </div>
+    <div th:unless="${Vacia}"  class="container" id="content">
+            <div  class="row" style="padding: 30px;margin-left:15px:">
+                <div class="col-sm-9">
+                    <h1>Veterinarios</h1></div>
+            </div>
+            <hr style="border-top: 2px solid;color: beige;">
+        <table style="font-family:arial;" class="table table-sm">
+            <tbody style="background: #d95c52;color: white;">
+            <tr style="font-size:19px;color:white;background:#563d7c;" >
+            <th><i class="fal fa-head-side-medical"></i></th>
+            <th>Nombre</th>
+            <th>Dirección</th>
+            <th>Telefono</th>
+            <th>Correo</th>
+            <th>Contactar</th>
+            </tr>
+            <tr th:each="veterinario : ${veterinarios}">
+               <td><img style="width:120px;vertical-align:middle" class="card-img-top"  src = "/img/drimg.png"></td>
+                <td th:text="${veterinario.nombre}"></td>
+                <td th:text="${veterinario.direccion}"></td>
+                <td th:text="${veterinario.telefono}"></td>
+                <td th:text="${veterinario.email}"></td>
+                <td ><a href="#" style="background-color:#7a6896;" class="button  aBtn"><i class="fas fa-envelope"></i>Contactar</a> </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:replace="fragments/footer :: footer"/>
+</div>
+<div th:replace="fragments/footer :: js-library"/>
+<div th:replace="fragments/dialog :: dialog-buscar"/>
+<script th:src="@{/js/mascotaslist.js}"></script>
+</body>
+</html>

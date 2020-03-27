@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+
+<head th:replace="fragments/header :: header-base"/>
+
+<body>
+
+<head th:replace="fragments/header :: header-register"/>
+<div class="signup-form" style="margin-left: 200px; margin-right: 200px;margin-top:70px;margin-bottom:70px;">
+    <div  th:if="${yaRegistrado}"><h7>Este rut ya a sido registrado</h7></div>
+    <form th:action="@{/guarda}" th:object="${newUser}" id="registraform" method="post">
+        <h2>Registro</h2>
+        <h4 >Llena tus datos en las casillas inferiores</h4>
+        <hr style="border-top:2px solid;color:#d95763;">
+        <div class="form-group">
+            <div class="row">
+                <div class="col-xs-6" style="margin-left:15px;"><input required type="text" pattern="^(\d{1}|\d{2})\.(\d{3}\.\d{3}-)([a-zA-Z]{1}$|\d{1}$)" class="form-control" name="rut" placeholder="RUT"
+                                             ></div>
+            </div>
+        </div>
+        <div class="form-group"><input type="text" class="form-control" name="nombre" placeholder="Nombre Completo"
+                                       required="required"></div>
+        <div class="form-group">
+            <input type="email" class="form-control" name="email" placeholder="Email" required="required">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" name="telefono" placeholder="Telefono">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" name="direccion" placeholder="Dirección"
+                   >
+        </div>
+        <div class="form-group">
+            <input type="password" id="password" class="form-control" name="contraseña" placeholder="Contraseña"
+                   required="required">
+        </div>
+        <div class="form-group">
+            <input type="password" id="confirm_password" class="form-control" placeholder="Confirmar Contraseña"
+                   required="required">
+        </div>
+        <div class="form-group">
+            <label class="checkbox-inline"><input type="checkbox" required="required">Acepto los <a href="#">Terminos de uso</a> &amp; <a href="#">Privacy Policy</a></label>
+        </div>
+        <div class="form-group">
+            <button type="submit" style="background:#d95763;background-border:#d95763" class="btn btn-success btn-lg btn-block">Registrarse</button>
+        </div>
+    </form>
+</div>
+<div th:replace="fragments/dialog :: dialog-buscar2"/>
+<div th:replace="fragments/footer :: footer"/>
+<script>
+    var password = document.getElementById("password")
+        , confirm_password = document.getElementById("confirm_password");
+
+    function validatePassword(){
+        if(password.value != confirm_password.value) {
+            confirm_password.setCustomValidity("Contraseñas no coinciden");
+        } else {
+            confirm_password.setCustomValidity('');
+        }
+    }
+
+    password.onchange = validatePassword;
+    confirm_password.onkeyup = validatePassword;
+
+</script>
+<div th:replace="fragments/footer :: js-library"/>
+<script th:src="@{/js/index.js}"></script>
+</body>
+</html>

@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<body>
+<div th:fragment="dialog-agregar" class="FormAgregar">
+    <div class="modal fade" id="modalAgregar" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalCenterTitle"
+         aria-hidden="true">
+        <form th:action="@{/LPU/agregar}" enctype="multipart/form-data" id="agregarform"  method="post">
+            <div class="modal-dialog modal-dialog-centered" style="overflow-y: initial !important">
+                <div class="modal-content">
+                    <div class="modal-header" style="border-bottom:0px;background-color:#d95763;" >
+                        <h5 class="modal-title" style="color:#fff">Publicar Mascota</h5>
+                    </div>
+                    <div class="modal-body" style="height: 500px;overflow-y: auto;">
+                        <h3 style="color:#563d7c">Datos de la mascota</h3>
+                        <hr style="border-top:2px solid;color:#d95763;">
+                        <div class="row" style="margin:auto" >
+                            <div class="col-sm-6">
+                                <section>
+                                    <label>Nombre</label><br>
+                                    <input required type="text" maxlength="72"  pattern="^[a-zA-Z\s]*$"
+                                           name="nombre" id="nombre"  placeholder="Nombre de la mascota">
+                                </section>
+                            </div>
+                            <div class="col-sm-6">
+                                <section><br>
+                                    <label>Tipo de mascota:</label>
+                                    <select id="tipo" name="tipo">
+                                        <option>Perro</option>
+                                        <option>Gato</option>
+                                    </select>
+                                </section>
+                            </div>
+                        </div><br><hr>
+                        <div class="row" style="margin:auto" >
+                            <div class="col-sm-6">
+                                <section>
+                                    <label>Edad:</label><br>
+                                    <input required type="text" maxlength="2" style="width:15%;" pattern="^[0-9]*"
+                                           name="anos" id="anos">
+                                    <label>Años</label>
+                                    <input required type="text" maxlength="2" style="width:15%;" pattern="^(1[0-2]|[1-9])$"
+                                           name="meses" id="meses" >
+                                    <label>Meses</label>
+                                </section>
+                            </div>
+                            <div class="col-sm-6">
+                                <section>
+                                    <label>Raza:</label><br>
+                                    <input required type="text" maxlength="72"  pattern="^[a-zA-Z\s]*$"
+                                           name="raza" id="raza"  placeholder="Raza de la mascota">
+                                </section>
+                            </div>
+                        </div><br><hr>
+                        <div class="row" style="margin:auto" >
+                            <div class="col-sm-6">
+                                <section>
+                                    <label>Sexo:</label>
+                                    <select id="sexo" name="sexo">
+                                        <option>Macho</option>
+                                        <option>Hembra</option>
+                                    </select>
+                                </section>
+                            </div>
+                            <div class="col-sm-6"><section>
+                                <input type="checkbox" id="urgente" name="urgente"/>
+                                <label>Adopción Urgente</label>
+                            </section>
+                            </div>
+                        </div><br><hr>
+                        <label>Tipo de Hogar Sugerido:</label>
+                        <select id="tipoHogarSugerido" name="tipoHogarSugerido">
+                            <option>Casa con patio</option>
+                            <option>Parcela</option>
+                            <option>Departamento pequeño</option>
+                            <option>Departamento Mediano o Grande</option>
+                        </select><br><br><hr>
+                        <div class="row" style="margin:auto">
+                            <div class="col-sm-6 ">
+                                <section>
+                                    <input type="checkbox" id="estirilizado" name="estirilizado"/>
+                                    <label>Estirilizado</label>
+                                </section>
+                            </div>
+                            <div class="col-sm-6">
+                                <section>
+                                    <input type="checkbox" onclick="myFunction()" id="tieneChip" name="tieneChip"/>
+                                    <label>Posee Chip</label><br>
+                                    <label style="display:none" id="textchip" >N° de chip:</label>
+                                    <input style="display:none;width:90%" id="numeroChip" name="numeroChip" type="text" minlength="6" maxlength="6"   />
+                                </section>
+                            </div>
+                        </div><br><hr>
+                        <div class="row" style="margin:auto">
+                            <section>
+                                <label>Descripción:</label><br>
+                                <textarea required row="8" cols="50" maxlength="655" class="form-control"
+                                          name="descripcion" id="descripcion" style="height:100px"  placeholder="Descripción de la mascota"></textarea>
+                            </section>
+                        </div><br><hr>
+                        <div class="row" style="margin:auto">
+                            <div class="col-sm-6">
+                                <section>
+                                    <img id="blah" src="/img/Insertar Imagen2.png"  />
+                                </section>
+                            </div>
+                            <div class="col-sm-6">
+                                <section><br><br><br>
+                                    <input required id="upFile" data-text="Eligen Imagen" data-btnClass="btn-primary" data-input="false"  accept=".png,.jpeg,.jpg" type="file"
+                                           class="inputfile filestyle" onchange="readURL(this);" name="fileUpload" value="fileupload" size="20">
+                                </section>
+                            </div>
+                        </div><br><hr>
+                        <h11 id="isagregable" style="color:#f01414;font-size:10px"  ></h11><br>
+                        <button type="button" style="width:30%;"
+                                class="btn btn-danger btn-default " data-dismiss="modal">Cancelar</button>
+                        <button  type="submit" id="agregarSubmit"
+                                 style="width:45%;" class="btn btn-success ">Publicar Mascota</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div th:fragment="dialog-buscar" class="FormBuscar">
+    <div class="modal fade" id="modalBuscar" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalCenterTitle"
+         aria-hidden="true">
+        <form th:action="@{/LPU/listado}" id="busquedaform"  >
+            <div class="modal-dialog modal-dialog-centered" style="max-width:600px;" >
+                <div class="modal-content">
+                    <div class="modal-header" style="border-bottom:0px;background-color:#d95763 " >
+                        <h5 class="modal-title" style="color:#fff">Busqueda de mascota</h5>
+                    </div>
+                    <div class="modal-body">
+                        <h3 style="color:#563d7c">Datos de la mascota a buscar</h3>
+                        <hr style="border-top:2px solid;color:#d95763;">
+                        <div class="row " style="margin:auto;">
+                            <div class="col-sm-5">
+                                <section>
+                                    <label>Tipo:</label>
+                            <select  name="tipo">
+                                <option>Perro</option>
+                                <option>Gato</option>
+                            </select>
+                                </section>
+                            </div>
+                            <div class="col-sm-7">
+                                <section>
+                                    <label>Hogar:</label>
+                            <select name="tipoHogar">
+                                <option>Cualquier Hogar</option>
+                                <option>Casa con patio</option>
+                                <option>Parcela</option>
+                                <option>Departamento pequeño</option>
+                                <option>Departamento Mediano o Grande</option>
+                            </select>
+                                </section>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row" style="margin:auto;" >
+                            <div class="col-sm-5">
+                                <section>
+                                    <label>Sexo:</label>
+                            <select name="sexo">
+                                <option>Cualquier Sexo</option>
+                                <option>Macho</option>
+                                <option>Hembra</option>
+                            </select>
+                                </section>
+                            </div>
+                            <div class="col-sm-7">
+                                <section>
+                                    <label>Posee chip:</label>
+                            <select name="chip">
+                                <option>No es de interes</option>
+                                <option>Si</option>
+                                <option>No</option>
+                            </select>
+                                </section>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row" style="margin:auto;" >
+                            <div class="col-sm-5">
+                                <section>
+                                    <label>Estirilizado:</label>
+                                <select name="esterilizado">
+                                <option>No es de interes</option>
+                                <option>Si</option>
+                                <option>No</option>
+                            </select>
+                                </section>
+                            </div>
+                            <div class="col-sm-7">
+                                <section>
+                                    <label>De Adopción urgente:</label>
+                                    <select name="urgente">
+                                        <option>No es de interes</option>
+                                        <option>Si</option>
+                                    </select>
+                                </section>
+                            </div>
+                        </div>
+                        <hr style="border-top:2px solid;color:#d95763;">
+                        <div class="modal-footer" style="border-top:0px;">
+                            <button type="button" style="width:30%;"
+                                    class="btn btn-danger btn-default " data-dismiss="modal">Cancelar</button>
+                            <button  type="submit" id="mascotaSubmit"
+                                     style="width:45%;" class="btn btn-success ">Buscar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div th:fragment="dialog-login" style="font-family:arial" class="FormLogin">
+    <div class="modal fade" id="modalLogin" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalCenterTitle"
+         aria-hidden="true">
+        <form th:action="@{/login}" id="loginform" method="post" >
+            <div class="modal-dialog modal-dialog-centered" style="width:400px;max-width:600px;" >
+                <div class="modal-content">
+                    <div class="modal-header" style="border-bottom:0px;background-color:#d95763 " >
+                        <h5 class="modal-title" style="color:#fff">Iniciar Sesión</h5>
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <div style="display:none" id="warning" class="alert alert-warning">
+                            <strong>Warning!</strong> Usuario o clave incorrecta.
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2"></div>
+                            <div class="col-sm-7">
+                                <section>
+                                    <label>RUT:</label>
+                                    <input required class="form-control" type="text" id="rut" name="rut"
+                                           pattern="^(\d{1}|\d{2})\.(\d{3}\.\d{3}-)([a-zA-Z]{1}$|\d{1}$)"><p>(Escribir con puntos y guion)</p><br>
+                                    <label>Contraseña:</label>
+                                    <input required class="form-control" type="password" id="contraseña" name="contraseña"><br>
+                                    <a href="javascript:{}" onclick="document.getElementById('loginform').submit();" style="font-size:15px;background-color:#d95763;" class="button">Iniciar Sesión</a>
+                                </section>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div th:fragment="dialog-registrar" class="FormRegistrar">
+    <div class="modal fade" id="modalRegistrar" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalCenterTitle"
+         aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" style="max-width:600px;" >
+                <div class="modal-content">
+                    <div class="modal-header" style="border-bottom:0px;background-color:#d95763 " >
+                        <h5 class="modal-title" style="color:#fff">Registrar</h5>
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <h3 style="color:#563d7c">Registrarse como:</h3>
+                        <hr style="border-top:2px solid;color:#d95763;">
+                        <div class="row">
+                            <div class="col-sm-1" style="margin-left: 30px;"></div>
+                            <div class="col-sm-3">
+                                <section>
+                                    <i style="font-size:60px;color:orange;margin-left: 20px;" class="fas fa-user"></i><br>
+                                    <a href="/registrar/usuario" style="background-color:orange;" class="button">Usuario</a>
+                                </section>
+                            </div>
+                            <div class="col-sm-3">
+                                <section>
+                                    <i style="font-size:60px;color:orange;margin-left: 20px;" class="fas fa-clinic-medical"></i><br>
+                                    <a  href="#" style="background-color:orange;" class="button">Veterinario</a>
+                                </section>
+                            </div>
+                            <div class="col-sm-3">
+                                <section>
+                                    <i style="font-size:60px;color:orange;margin-left: 20px;" class="fas fa-users"></i><br>
+                                    <a  href="#" style="background-color:orange;" class="button">Agrupación</a>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+<div th:fragment="dialog-buscar2" class="FormBuscar2">
+    <div class="modal fade" id="modalBuscar" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalCenterTitle"
+         aria-hidden="true">
+        <form th:action="@{/listado}" id="busquedaform"  >
+            <div class="modal-dialog modal-dialog-centered" style="max-width:600px;" >
+                <div class="modal-content">
+                    <div class="modal-header" style="border-bottom:0px;background-color:#d95763 " >
+                        <h5 class="modal-title" style="color:#fff">Busqueda de mascota</h5>
+                    </div>
+                    <div class="modal-body">
+                        <h3 style="color:#563d7c">Datos de la mascota a buscar</h3>
+                        <hr style="border-top:2px solid;color:#d95763;">
+                        <div class="row " style="margin:auto;">
+                            <div class="col-sm-5">
+                                <section>
+                                    <label>Tipo:</label>
+                                    <select  name="tipo">
+                                        <option>Perro</option>
+                                        <option>Gato</option>
+                                    </select>
+                                </section>
+                            </div>
+                            <div class="col-sm-7">
+                                <section>
+                                    <label>Hogar:</label>
+                                    <select name="tipoHogar">
+                                        <option>Cualquier Hogar</option>
+                                        <option>Casa con patio</option>
+                                        <option>Parcela</option>
+                                        <option>Departamento pequeño</option>
+                                        <option>Departamento Mediano o Grande</option>
+                                    </select>
+                                </section>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row" style="margin:auto;" >
+                            <div class="col-sm-5">
+                                <section>
+                                    <label>Sexo:</label>
+                                    <select name="sexo">
+                                        <option>Cualquier Sexo</option>
+                                        <option>Macho</option>
+                                        <option>Hembra</option>
+                                    </select>
+                                </section>
+                            </div>
+                            <div class="col-sm-7">
+                                <section>
+                                    <label>Posee chip:</label>
+                                    <select name="chip">
+                                        <option>No es de interes</option>
+                                        <option>Si</option>
+                                        <option>No</option>
+                                    </select>
+                                </section>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row" style="margin:auto;" >
+                            <div class="col-sm-5">
+                                <section>
+                                    <label>Estirilizado:</label>
+                                    <select name="esterilizado">
+                                        <option>No es de interes</option>
+                                        <option>Si</option>
+                                        <option>No</option>
+                                    </select>
+                                </section>
+                            </div>
+                            <div class="col-sm-7">
+                                <section>
+                                    <label>De Adopción urgente:</label>
+                                    <select name="urgente">
+                                        <option>No es de interes</option>
+                                        <option>Si</option>
+                                    </select>
+                                </section>
+                            </div>
+                        </div>
+                        <hr style="border-top:2px solid;color:#d95763;">
+                        <div class="modal-footer" style="border-top:0px;">
+                            <button type="button" style="width:30%;"
+                                    class="btn btn-danger btn-default " data-dismiss="modal">Cancelar</button>
+                            <button  type="submit" id="mascotaSubmit"
+                                     style="width:45%;" class="btn btn-success ">Buscar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div th:fragment="dialog-borrar" class="FormBorrar">
+    <div class="modal fade" id="modalBorrar" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalCenterTitle"
+         aria-hidden="true">
+        <form th:action="@{/LPU/eliminar}"  method="post">
+            <div class="modal-dialog modal-dialog-centered" style="max-width:400px;" >
+                <div class="modal-content" >
+                    <div class="modal-header" style="background-color:#ee5529;">
+                        <h5 class="modal-title" style="color:#fff" >¿Estas seguro?</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span >&times;</span>
+                        </button>
+                        <input hidden id="mascotaborrar" name="id">
+                    </div>
+                    <div class="modal-footer" style="border-top:0px;">
+                        <button type="button" style="width: 20%;" class="btn btn-danger btn-default " data-dismiss="modal"><i class="fas fa-times"></i></button>
+                        <button  type="submit" style="width: 20%;" class="btn btn-success "><i class="fas fa-check"></i></button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

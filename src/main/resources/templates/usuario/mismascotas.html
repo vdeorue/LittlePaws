@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header-base"/>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+
+    <script defer src="https://use.fontawesome.com/releases/v5.12/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.12/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+    <link rel="stylesheet" th:href="@{/css/notificacion.css}">
+</head>
+<body style="text-align:left">
+<nav th:replace="fragments/sidebar :: sidebar"/>
+
+<div class="main">
+    <head th:replace="fragments/header :: header-inside"/>
+    <div class="container" style="margin-top:150px;margin-bottom:150px;" th:if="${Vacia}">
+        <section style="text-align:center">
+            <h1>No has publicado ninguna mascota para su adopción</h1><br>
+            <a  href="#" style="font-size:large;background-color:#d95763;" class="button  aBtn"><i class="fas fa-paw"></i> Publicar Mascota</a>
+        </section>
+    </div>
+    <div th:unless="${Vacia}"  class="container" id="content">
+        <div  class="row" style="padding: 30px;margin-left:15px:">
+            <div class="col-sm-9">
+                <h1>Mis Mascotas</h1></div>
+            <div class="col-sm-3">
+                <a href="#" style="font-size:16px;background-color:#d95763;" class="button  aBtn"><i class="fas fa-paw"></i> Publicar Mascota</a>
+            </div>
+           </div>
+        <hr style="border-top: 2px solid;color: beige;">
+        <div class="row" style="margin-left:30px;margin-bottom: 100px;">
+            <div th:each="mascotas : ${mascota}" class="col-sm-4">
+                <div class="card" style="max-width: 18rem; min-width:18rem ">
+                    <img alt="..." class="card-img-top"  th:src = "@{'/LPU/imagen/'+${mascotas.id}}">
+                    <div style="margin-right: 20px;text-align: center;" class="info">
+                        <h3 style="color:red" th:if="${mascotas.urgente}">Adopción Urgente</h3>
+                        <h3 style="color:orange"  th:text="${mascotas.nombre}"></h3>
+                        <h4 style="color:orange"  th:text="${mascotas.edad}" ></h4><br><br><br><br><br>
+                        <label style="color:orange" th:text="${mascotas.raza}"></label><br>
+                        <label style="color:orange" th:text ="${mascotas.sexo}"></label><br>
+                        <a  th:href="'/LPU/vermimascota/'+@{${mascotas.id}}" class="button">Ver Mas<i class="fas fa-paw"></i></a>
+                        <a th:href="'/LPU/encontrar/'+@{${mascotas.id}}" class="button eBtn">Eliminar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- footer part start-->
+    </div>
+    <div th:replace="fragments/footer :: footer"/>
+</div>
+<div th:replace="fragments/dialog :: dialog-agregar"/>
+<div th:replace="fragments/dialog :: dialog-buscar"/>
+<div th:replace="fragments/dialog :: dialog-borrar"/>
+<div th:replace="fragments/footer :: js-library"/>
+<script th:src="@{/js/mascotaslist.js}"></script>
+</body>
+</html>

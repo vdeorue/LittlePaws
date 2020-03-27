@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header-base"/>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+
+    <script defer src="https://use.fontawesome.com/releases/v5.12/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.12/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+    <link rel="stylesheet" th:href="@{/css/notificacion.css}">
+</head>
+<body style="text-align:left">
+    <head th:replace="fragments/header :: header-veterinario"/>
+    <div class="row" style="margin-top:60px;background:orange;">
+        <div style="margin-left: 40px;" class="col-sm-4">
+            <img class="center-image" style="width:289px;height:515px;" th:src = "@{'/imagen/'+${mascota.id}}">
+        </div>
+        <div class="col-sm-6">
+            <section >
+                <h1 style="color:#563d7c;" th:text="${mascota.nombre}"></h1><br>
+                <h3 style="color:#737373;" th:text="${'Encargado: '+ encargado.nombre}"></h3>
+                <h4 style="color:#737373;"  th:text="${'Edad: '+mascota.edad}"></h4><br>
+                <p style="color:#2f373d;font-size: 1.3em;" th:text="${mascota.descripcion}"></p><br>
+            </section>
+        </div>
+    </div>
+    <br><hr style="border-top: 2px solid;color: beige;">
+    <div class="row" style="background:orange;margin-bottom:60px;">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-5">
+            <section>
+                <br>
+                <h3>Datos:</h3>
+                <span class="marca">Sexo:</span>
+                <span class="submarca" th:utext="${mascota.sexo}+'<br>'"></span>
+                <span class="marca">Tipo de hogar sugerido: </span>
+                <span class="submarca" th:utext="${mascota.tipoHogarSugerido}+'<br>'"></span>
+                <span class="marca">Estirilizado:</span>
+                <span class="submarca" th:utext="${mascota.estirilizado} ? 'Si <br>' : 'No <br>' "></span>
+                <span class="marca">Posee Chip:</span>
+                <span class="submarca" th:utext="${mascota.tieneChip} ? 'Si <br>' : 'No <br>' "></span>
+                <span class="marca">Estado urgente:</span>
+                <span class="submarca" th:utext="${mascota.urgente} ? 'Si <br>' : 'No <br>' "></span>
+            </section>
+        </div>
+        <div class="col-sm-6">
+            <section>
+                <br>
+                <h3>Contacto:</h3>
+                <span class="marca" th:text="${encargado.email != null} ? 'Correo: '"></span>
+                <span class="submarca" th:utext="${encargado.email != null} ? ${encargado.email} +'<br>' "></span>
+                <span class="marca" th:text="${encargado.telefono != null} ? 'Telefono: '"></span>
+                <span class="submarca" th:utext="${encargado.telefono != null} ? ${encargado.telefono} +'<br>' "></span>
+                <span class="marca" th:text="${encargado.facebook != null} ? 'Facebook: '"></span>
+                <span class="submarca" th:utext="${encargado.facebook != null} ?  ${encargado.facebook} +'<br>' "></span>
+                <span class="marca" th:text="${encargado.twitter != null} ? 'Twitter: '"></span>
+                <span class="submarca" th:utext="${encargado.twitter != null} ? ${encargado.twitter} +'<br>' "></span>
+            </section>
+        </div>
+    </div>
+    <div class="row" style="background: white;"><section style="padding: 1px;"></section></div>
+    <div style="background:#7a6896" class="row">
+        <section style="text-align:center;padding-top: 70px;padding-bottom: 100px;margin-left: 150px;">
+            <h1 style="color: white;">Registrate para adoptar a esta mascota, presionando aqui:</h1><br>
+            <a href="/registrar/usuario" style="font-size:16px;background-color:#d95763;" class="button ">Quiero Adoptar <i class="fas fa-angle-right"></i></a>
+        </section>
+    </div>
+    <div th:replace="fragments/footer :: footer"/>
+
+<div th:replace="fragments/footer :: js-library"/>
+<div th:replace="fragments/dialog :: dialog-buscar2"/>
+<div th:replace="fragments/dialog :: dialog-login"/>
+<div th:replace="fragments/dialog :: dialog-registrar"/>
+<script th:src="@{/js/index.js}"></script>
+</body>
+</html>
